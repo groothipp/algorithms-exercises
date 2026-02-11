@@ -2,19 +2,31 @@
   Make a function that computes a factorial recursively.
   A factorial is when you take a number n and multiply by each preceding integer until you hit one.
   n * (n-1) * (n-2) ... * 3 * 2 * 1
-  
+
   Call the function factorial
-  
+
   factorial(1) = 1
   factorial(2) = 2
-  factorial(3) = 6 
+  factorial(3) = 6
 */
 
-function factorial(n) {}
+const cache = new Map()
+
+function factorial(n) {
+  if (n == 0 || n == 1) return 1
+
+  if (cache.has(n))
+    return cache.get(n)
+
+  const val = n * factorial(n - 1)
+  cache.set(n, val)
+
+  return val
+}
 
 // unit tests
 // do not modify the below code
-test.skip("factorials", () => {
+test("factorials", () => {
   expect(factorial(1)).toEqual(1);
   expect(factorial(2)).toEqual(2);
   expect(factorial(3)).toEqual(6);
